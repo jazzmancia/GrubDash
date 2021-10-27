@@ -9,9 +9,8 @@ const nextId = require("../utils/nextId");
 // helper function for validation of  required props
 const validProps = require("../utils/validProps")
 
-// TODO: Implement the /orders handlers needed to make the tests pass
 // list all dishes
-const list = (req, res) => {
+function list(req, res){
     res.json({ data: orders })
 };
 
@@ -85,7 +84,7 @@ function create(req, res){
 };
 
 // validate id
-const validId = (req, res, next) => {
+function validId(req, res, next){
     const { orderId } = req.params;
     const foundOrder = orders.find((order) => order.id === orderId);
     if (foundOrder){
@@ -99,7 +98,7 @@ const validId = (req, res, next) => {
 };
 
 // validate status
-const validStatus = (req, res, next) => {
+function validStatus(req, res, next){
     const { data: { status } = {} } = req.body;
     const validStatuses = ["pending", "preparing", "out-for-delivery"];
     if(!status || !validStatuses.includes(status)){
@@ -118,7 +117,7 @@ const validStatus = (req, res, next) => {
 };
 
 // validate delivered cannot be changed
-const orderPending = (req, res, next) => {
+function orderPending(req, res, next){
     if (res.locals.order.status !== 'pending') {
         return next({
             status: 400,
@@ -144,7 +143,7 @@ function matchId(req, res, next){
 };
 
 // update existing order
-const update = (req, res, next) => {
+function update(req, res, next){
     const { data: {deliverTo, mobileNumber, status, dishes} = {} } = req.body;
     const order = {
         ...res.locals.order,
@@ -157,7 +156,7 @@ const update = (req, res, next) => {
 };
 
 //delete pending order
-const destroy = (req, res) => {
+function destroy(req, res){
     const index = orders.findIndex((order) => order.id === res.locals.order.id);
     orders.splice(index, 1);
     res.sendStatus(204);
