@@ -9,8 +9,6 @@ const nextId = require("../utils/nextId");
 // helper function for validation of  required props
 const validProps = require("../utils/validProps")
 
-// TODO: Implement the /dishes handlers needed to make the tests pass
-
 // list all dishes
 function list(req, res){
     res.json({ data: dishes })
