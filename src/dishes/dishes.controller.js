@@ -12,12 +12,12 @@ const validProps = require("../utils/validProps")
 // TODO: Implement the /dishes handlers needed to make the tests pass
 
 // list all dishes
-const list = (req, res) => {
+function list(req, res){
     res.json({ data: dishes })
 };
 
 // read existing dish
-const read = (req, res ) => {
+function read(req, res ){
     res.json({ data: res.locals.dish })
 };
 
